@@ -1,5 +1,5 @@
 {
-  "name": "webpack_refactor_react_demo",
+  "name": "graphql-workshop",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "keywords": [],
   "author": "Joe Karlsson",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "autoprefixer": "^6.7.2",
     "babel-core": "^6.26.0",

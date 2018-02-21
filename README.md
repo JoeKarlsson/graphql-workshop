@@ -75,7 +75,21 @@ This data is loaded from your database using GraphQL - you're ready to do the wo
 
 This gives you all the previous steps completed, together with some audible feedback. Now its up to you :-)
 
-### Copyright
+### Maintainers
 
-Licensed under the MIT license.<br />
-Copyright (c) 2018, Joe Karlsson
+<table>
+  <tbody>
+    <tr>
+      <td align="center">
+        <img width="150 height="150"
+        src="https://avatars.githubusercontent.com/JoeKarlsson?v=3">
+        <br />
+        <a href="https://github.com/JoeKarlsson">Joe Karlsson</a>
+      </td>
+    <tr>
+  <tbody>
+</table>
+
+### License
+
+#### [MIT](./LICENSE)
