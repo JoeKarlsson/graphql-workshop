@@ -1,9 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require ('body-parser');
-const ToDo = require ('./database/Todo');
 const path = require('path');
-// const { Schema } = require('./database/schema');
+const ToDo = require ('./database/Todo');
+const { graphql } = require('graphql');
+const graphqlHTTP = require('express-graphql');
+const schema = require('./graphql/Schema');
 
 const app = express();
 const SERVER_PORT = 3000;
@@ -14,12 +16,17 @@ module.exports = function (app) {
 	mongoose.connect('mongodb://localhost:27017/local')
 
 	const db = mongoose.connection;
-	db.on('error', ()=> {console.log( '---FAILED to connect to mongoose')})
+	db.on('error', ()=> { console.log( '---FAILED to connect to mongoose') })
 	db.once('open', () => {
 		console.log( '+++Connected to mongoose')
 	})
 
 	app.use('/', express.static(path.resolve(__dirname, 'dist')));
+
+	app.use('/graphql', graphqlHTTP (req => ({
+		schema,
+		// graphiql:true,
+	})))
 
 	app.post('/quotes',(req,res)=>{
 		// Insert into TodoList Collection
@@ -31,7 +38,7 @@ module.exports = function (app) {
 
 		todoItem.save((err,result)=> {
 			if (err) {console.log("---TodoItem save failed " + err)}
-			console.log("+++TodoItem saved successfully "+todoItem.item)
+			console.log("+++TodoItem saved successfully " + todoItem.item)
 
 			res.redirect('/')
 		})

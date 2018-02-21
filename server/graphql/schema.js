@@ -1,13 +1,72 @@
-const mongoose = require('mongoose');
+const {
+  GraphQLObjectType,
+  GraphQLNonNull,
+  GraphQLSchema,
+  GraphQLString,
+  GraphQLList,
+  GraphQLInt,
+  GraphQLBoolean
+} = require('graphql/type');
 
-const Schema = mongoose.Schema;
-// create a schema
-const toDoSchema = new Schema({
-    itemId: Number,
-    item: String,
-    completed: Boolean
-}, {collection:"TodoList"});
-// we need to create a model using it
-const ToDo = mongoose.model('ToDo', toDoSchema);
+const ToDoMongo = require('../database/Todo');
 
-module.exports = ToDo
+/**
+ * generate projection object for mongoose
+ * @param  {Object} fieldASTs
+ * @return {Project}
+ */
+function getProjection (fieldASTs) {
+  return fieldASTs.fieldNodes[0].selectionSet.selections.reduce((projections, selection) => {
+    projections[selection.name.value] = true;
+    return projections;
+  }, {});
+}
+
+var todoType = new GraphQLObjectType({
+  name: 'todo',
+  description: 'todo item',
+  fields: () => ({
+    itemId: {
+      type: (GraphQLInt),
+      description: 'The id of the todo.',
+    },
+    item: {
+      type: GraphQLString,
+      description: 'The name of the todo.',
+    },
+    completed: {
+      type: GraphQLBoolean,
+      description: 'Completed todo? '
+    }
+  })
+});
+
+var schema = new GraphQLSchema({
+  query: new GraphQLObjectType({
+    name: 'RootQueryType',
+    fields: {
+      todo: {
+        type: new GraphQLList(todoType),
+        args: {
+          itemId: {
+            name: 'itemId',
+            type: new GraphQLNonNull(GraphQLInt)
+          }
+        },
+        resolve: (root, {itemId}, source, fieldASTs) => {
+          var projections = getProjection(fieldASTs);
+          var foundItems = new Promise((resolve, reject) => {
+              ToDoMongo.find({itemId}, projections,(err, todos) => {
+                  err ? reject(err) : resolve(todos)
+              })
+          })
+
+          return foundItems
+        }
+      }
+    }
+  })
+
+});
+
+module.exports = schema;
