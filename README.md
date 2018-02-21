@@ -44,7 +44,8 @@ Finally, we can now run `npm start`, which boots up the web server, as well as t
 
 To confirm everything is working, go into your web browser and open http://localhost:3001/ - you should see a Hello World message like this there:
 
-![](https://d17oy1vhnax1f7.cloudfront.net/items/2Q0z03452h0W3U280o2v/Screen%20Shot%202016-09-12%20at%203.21.26%20PM.png)
+<img width="730" alt="screen shot 2018-02-20 at 7 47 35 pm" src="https://user-images.githubusercontent.com/4650739/36458928-f395f8ca-1676-11e8-80f9-a9a5295c3d3b.png">
+
 
 This data is loaded from your database using GraphQL - you're ready to do the workshop now :)
 
