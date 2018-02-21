@@ -13,7 +13,7 @@ const SERVER_PORT = 3000;
 module.exports = function (app) {
 	app.use(bodyParser.urlencoded({extended:true}))
 
-	mongoose.connect('mongodb://localhost:27017/local')
+	mongoose.connect('mongodb://database:27017/local')
 
 	const db = mongoose.connection;
 	db.on('error', ()=> { console.log( '---FAILED to connect to mongoose') })
