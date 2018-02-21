@@ -33,9 +33,10 @@ npm run start:docker
 You can verify with `docker ps` that the instance is running, the output should look like this:
 
 ```
-gajah:Code lfittl$ docker ps
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
-10a2832fc3a0        postgres:9.5        "/docker-entrypoint.s"   7 minutes ago       Up 7 minutes        0.0.0.0:5432->5432/tcp   graphqlworkshop_db_1
+» docker ps
+CONTAINER ID        IMAGE                              COMMAND                  CREATED             STATUS              PORTS                              NAMES
+0ad17dd6f1ea        graphqlworkshop_graphql-workshop   "npm start"              46 seconds ago      Up 48 seconds       0.0.0.0:3000->3000/tcp, 3001/tcp   graphqlworkshop_graphql-workshop_1
+469b489d1507        mongo                              "docker-entrypoint.s…"   5 minutes ago       Up 49 seconds       27017/tcp                          graphqlworkshop_database_1
 
 ```
 
