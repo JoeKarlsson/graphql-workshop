@@ -1,9 +1,8 @@
-'use strict';
-
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const server = require('./server/server');
 
 module.exports = {
   devtool: 'eval-source-map',
@@ -31,6 +30,7 @@ module.exports = {
 	devServer: {
 		contentBase: path.join(__dirname, 'dist'),
 		port: 3000,
+		setup: server,
 	},
   module: {
     rules: [{
