@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --inline --hot --progress",
-		"start:docker": "docker-compose up --build",
+		"start:docker": "docker-compose up --build"
   },
   "keywords": [],
   "author": "Joe Karlsson",
