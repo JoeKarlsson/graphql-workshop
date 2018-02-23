@@ -13,11 +13,6 @@ class App extends Component {
 					<button type="submit">Submit</button>
  				</form>
  				<hr />
-				<h2>GraphQL Test</h2>
- 				<hr />
-				<div>
-					<a href="/graphql?query={todo(itemId:1){itemId,item}}">GraphQL Test</a>
-				</div>
     </div>
     )
   }

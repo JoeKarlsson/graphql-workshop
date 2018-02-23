@@ -1,12 +1,11 @@
 {
   "name": "graphql-workshop",
   "version": "1.0.0",
-  "description": "",
+  "description": "GraphQL is the future of API. It's powerful enough to describe all of Facebook, yet simple enough to be easy to learn and use by its product developers. If you have ever worked with an API, you have probably bumped into the limitations of REST.",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --inline --hot --progress",
 		"start:docker": "docker-compose up --build",
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Joe Karlsson",
@@ -18,8 +17,6 @@
     "babel-preset-env": "1.6.1",
     "babel-preset-react": "6.24.1",
     "express": "4.14.1",
-    "express-graphql": "0.6.12",
-    "graphql": "0.13.1",
     "html-webpack-plugin": "2.28.0",
     "mongoose": "5.0.6",
     "react": "15.4.2",

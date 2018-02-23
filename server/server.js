@@ -3,9 +3,6 @@ const mongoose = require('mongoose');
 const bodyParser = require ('body-parser');
 const path = require('path');
 const ToDo = require ('./database/Todo');
-const { graphql } = require('graphql');
-const graphqlHTTP = require('express-graphql');
-const schema = require('./graphql/Schema');
 
 const app = express();
 const SERVER_PORT = 3000;
@@ -22,11 +19,6 @@ module.exports = function (app) {
 	})
 
 	app.use('/', express.static(path.resolve(__dirname, 'dist')));
-
-	app.use('/graphql', graphqlHTTP (req => ({
-		schema,
-		// graphiql:true,
-	})))
 
 	app.post('/quotes',(req,res)=>{
 		// Insert into TodoList Collection
