@@ -39,9 +39,8 @@ CONTAINER ID        IMAGE                              COMMAND                  
 469b489d1507        mongo                              "docker-entrypoint.s…"   5 minutes ago       Up 49 seconds       27017/tcp                          graphqlworkshop_database_1
 ```
 
-Finally, we can now run `npm start`, which boots up the web server, as well as the webpack dev server.
 
-To confirm everything is working, go into your web browser and open [http://localhost:3001/](http://localhost:3001/) - you should see a Hello World message like this there:
+To confirm everything is working, go into your web browser and open [http://localhost:3000/](http://localhost:3000/) - you should see a Hello World message like this there:
 
 <img width="730" alt="screen shot 2018-02-20 at 7 47 35 pm" src="https://user-images.githubusercontent.com/4650739/36458928-f395f8ca-1676-11e8-80f9-a9a5295c3d3b.png">
 

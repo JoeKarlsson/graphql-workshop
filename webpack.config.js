@@ -31,6 +31,12 @@ module.exports = {
 		contentBase: path.join(__dirname, 'dist'),
 		port: 3001,
 		setup: server,
+		proxy: {
+      '/graphql': {
+        target: 'http://localhost:3000/graphql',
+        secure: false,
+      },
+    },
 	},
   module: {
     rules: [{

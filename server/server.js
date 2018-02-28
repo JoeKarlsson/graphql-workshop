@@ -2,16 +2,17 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require ('body-parser');
 const path = require('path');
+const cors = require('cors');
 const ToDo = require ('./database/Todo');
 const { graphql } = require('graphql');
 const graphqlHTTP = require('express-graphql');
 const schema = require('./graphql/Schema');
 
-const app = express();
 const SERVER_PORT = 3000;
 
 module.exports = function (app) {
 	app.use(bodyParser.urlencoded({extended:true}))
+	app.use(cors())
 
 	mongoose.connect('mongodb://database:27017/local')
 
@@ -21,11 +22,16 @@ module.exports = function (app) {
 		console.log( '+++Connected to mongoose')
 	})
 
-	app.use('/', express.static(path.resolve(__dirname, 'dist')));
+	// app.head('/graphql', (req, res) => {
+	//   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+	//   res.header('Access-Control-Request-Method', 'GET, POST');
+	//   res.header('Access-Control-Allow-Headers', 'Origin, Accept, Content-Type, Content-Length');
+	//   res.end();
+	// });
 
 	app.use('/graphql', graphqlHTTP (req => ({
 		schema,
-		// graphiql:true,
+		graphiql:true,
 	})))
 
 	app.post('/quotes',(req,res)=>{
@@ -43,6 +49,9 @@ module.exports = function (app) {
 			res.redirect('/')
 		})
 	})
+
+	app.use('/', express.static(path.resolve(__dirname, 'dist')));
+
 
 	app.listen(SERVER_PORT, () => {
 	  console.log(`Server is now running on http://localhost:${SERVER_PORT}`);
