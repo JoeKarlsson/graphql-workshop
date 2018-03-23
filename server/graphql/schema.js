@@ -33,37 +33,37 @@ const TodoMutationType = new GraphQLObjectType({
   name: 'todoMutation',
   description: 'These are the things we can change on a todo item.',
   fields: () => ({
-    // DeleteTodo: {
-    //   type: todoType,
-    //   description: 'Delete a todo with id and return the todo that was deleted.',
-    //   args: {
-    //     itemId: { type: new GraphQLNonNull(GraphQLInt) }
-    //   },
-    //   resolve: (value, { itemId }) => {
-		// 		const deletedItem = new Promise((resolve, reject) => {
-		// 				ToDoMongo.deleteOne({itemId},(err, todo) => {
-		// 						err ? reject(err) : resolve(todo);
-		// 				});
-		// 		});
-		//
-		// 		return deletedItem
-    //   }
-    // },
+    DeleteTodo: {
+      type: todoType,
+      description: 'Delete a todo with id and return the todo that was deleted.',
+      args: {
+        itemId: { type: new GraphQLNonNull(GraphQLInt) }
+      },
+      resolve: (value, { itemId }) => {
+				const deletedItem = new Promise((resolve, reject) => {
+						ToDoMongo.deleteOne({itemId},(err, todo) => {
+								err ? reject(err) : resolve(todo);
+						});
+				});
+
+				return deletedItem
+      }
+    },
 		AddTodo: {
       type: todoType,
       description: 'Create a todo and return the new todo.',
       args: {
 				itemId: {
-		      type: (GraphQLInt),
+		      type: new GraphQLNonNull(GraphQLInt),
 		      description: 'The id of the todo.',
 		    },
 		    item: {
-		      type: GraphQLString,
+		      type: new GraphQLNonNull(GraphQLString),
 		      description: 'The name of the todo.',
 		    },
 		    completed: {
 		      type: GraphQLBoolean,
-		      description: 'Completed todo?',
+		      description: 'Has the todo been completed?',
 		    }
       },
       resolve: (value, { itemId, item, completed }) => {
