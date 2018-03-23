@@ -3,7 +3,7 @@ const graphqlHTTP = require('express-graphql');
 const mongoose = require('mongoose');
 const path = require('path');
 const ToDo = require ('./database/Todo');
-const schema = require('./graphql/Schema');
+const schema = require('./graphql/schema');
 
 module.exports = function (app) {
 	mongoose.connect('mongodb://database:27017/local')
@@ -28,22 +28,6 @@ module.exports = function (app) {
 			}),
 		};
 	}));
-
-	app.post('/quotes',(req,res)=>{
-		// Insert into TodoList Collection
-		var todoItem = new ToDo({
-			itemId:1,
-			item:req.body.item,
-			completed: false
-		})
-
-		todoItem.save((err,result)=> {
-			if (err) {console.log("---TodoItem save failed " + err)}
-			console.log("+++TodoItem saved successfully " + todoItem.item)
-
-			res.redirect('/')
-		})
-	})
 
 	app.listen(3000);
 }

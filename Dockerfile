@@ -6,7 +6,7 @@ WORKDIR $HOME/graphqlWorkshop
 
 COPY package.json $HOME/graphqlWorkshop
 
-RUN rm -rf nmode_modules
+RUN rm -rf node_modules
 RUN npm install
 
 COPY . $HOME/graphqlWorkshop

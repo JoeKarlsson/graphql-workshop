@@ -16,7 +16,10 @@ class App extends Component {
 				<h2>GraphQL Test</h2>
  				<hr />
 				<div>
-					<a href="/graphql?query={todo(itemId:1){itemId,item}}">GraphQL Test</a>
+					<a href="/graphql?query={todo(itemId:1){itemId,item}}">GraphQL Query Test</a>
+				</div>
+				<div>
+					<a href='/graphql?query=mutation%20AddTodoItem{AddTodo(itemId:2,item:"New_todo_item",completed:false){item, completed}}&operationName=AddTodoItem'>GraphQL Mutation Test</a>
 				</div>
     </div>
     )
