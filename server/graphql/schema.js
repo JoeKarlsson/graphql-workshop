@@ -47,6 +47,7 @@ var schema = new GraphQLSchema({
     fields: {
       todo: {
         type: new GraphQLList(todoType),
+				description: 'Todo i',
         args: {
           itemId: {
             name: 'itemId',
@@ -66,7 +67,6 @@ var schema = new GraphQLSchema({
       }
     }
   })
-
 });
 
 module.exports = schema;
