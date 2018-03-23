@@ -8,13 +8,13 @@ class App extends PureComponent {
     return (
       <div>
       	<Header />
-				<h2>This is just a normal POST</h2>
+				<h4>REST</h4>
  				<div>Enter a new item in the text box and hit Submit to save it to the database</div>
  				<form action="/quotes" method="POST">
 					<input type="text" placeholder="item" name="item" />
 					<button type="submit">Submit</button>
  				</form>
-				<hr />
+				<h4>Graphql Post</h4>
 				<form action="/graphql?query=mutation" method="POST">
 					<input type="text" placeholder="item" name="item" />
 					<button type="submit">Submit</button>
