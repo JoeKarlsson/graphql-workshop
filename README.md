@@ -11,7 +11,7 @@ First of all, you'll need to install [Node.js](https://nodejs.org/en/) as well a
 Next, you'll need to clone this repository onto your local machine:
 
 ```bash
-git clone https://github.com/JoeKarlsson/graphql-workshop.git  -b step-1
+git clone https://github.com/JoeKarlsson/graphql-workshop.git -b step-1
 ```
 
 In the `graphql-workshop` directory, run the following:
@@ -49,13 +49,13 @@ This data is loaded from your database using GraphQL - you're ready to do the wo
 
 1. Run `git fetch` then `git checkout step-2`
 1. Look through the code together
-1. Add support for showing the Instruments of a Sequencer (client and server-side!)
+1. Add support for showing the Todos with GraphQL
 
 ### Step 3 - Effective Mutations
 
 1. Run `git fetch` then `git checkout step-3`
 1. Look through the code together
-1. Add support for adding and deleting the Instruments to a Sequencer (client and server-side!)
+1. Add support for adding and deleting Todos with GraphQL.
 
 ### Step 4 - Hack Time
 
