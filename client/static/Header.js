@@ -1,10 +1,14 @@
-import React from 'react';
+import React from "react";
+import "../css/index.css";
 
 const Header = () => (
-  <div>
-    <h1>GraphQL Workshop</h1>
-		<a href='http://callmejoe.net/'><h3>By: Joe Karlsson</h3></a>
-		<hr />
+  <div className="section get-help">
+    <div className="container">
+      <h3 className="section-heading">GraphQL Workshop</h3>
+      <p className="section-description">
+        By: <a href="http://callmejoe.net/">Joe Karlsson</a>
+      </p>
+    </div>
   </div>
 );
 
