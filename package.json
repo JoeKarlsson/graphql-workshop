@@ -11,18 +11,22 @@
   "author": "Joe Karlsson",
   "license": "MIT",
   "dependencies": {
-    "autoprefixer": "6.7.2",
+    "autoprefixer": "^8.0.0",
     "babel-core": "6.26.0",
     "babel-loader": "7.1.2",
     "babel-preset-env": "1.6.1",
     "babel-preset-react": "6.24.1",
+    "css-loader": "^0.28.11",
     "express": "4.14.1",
     "html-webpack-plugin": "2.28.0",
     "mongoose": "5.0.6",
+    "node-sass": "^4.7.2",
     "react": "15.4.2",
     "react-dom": "15.4.2",
-    "webpack": "2.6.1",
-    "webpack-dev-server": "2.9.7",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "^2.11.1",
     "webpack-hot-middleware": "2.21.0"
   }
 }
