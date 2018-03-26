@@ -7,14 +7,14 @@ class List extends PureComponent {
   render() {
     const itemNode = this.props.todos.map(todo => {
       return (
-        <Item todo={ todo.item } key={ todo._id } />
+        <Todo todo={ todo.item } key={ todo._id } />
       )
     })
     return <ul>{ itemNode }</ul>;
   }
 };
 
-class Item extends PureComponent {
+class Todo extends PureComponent {
   render() {
     return <li>{ this.props.todo }</li>;
   }
@@ -67,7 +67,7 @@ class App extends PureComponent {
 				</div>
 
 					<div className="six columns">
-            <h4>Graphql Post</h4>
+            <h4>GraphQL</h4>
             <form action="/graphql?query=mutation" method="POST">
               <input type="text" placeholder="item" name="item" />
               <button type="submit">Submit</button>
@@ -78,7 +78,6 @@ class App extends PureComponent {
 				<div className="section todos">
           <h4>Todos:</h4>
 					<List todos={this.state.todos} />
-
         </div>
 
 				<div className="section footer">
