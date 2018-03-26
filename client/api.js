@@ -35,6 +35,9 @@ const getGraphQlData = (resource, params, fields, isQuery = true ) => {
 		body: JSON.stringify({ query }),
 	})
 	.then(response => response.json())
+	.catch(err => {
+		console.error('err', err);
+	});
 }
 
 export default getGraphQlData;

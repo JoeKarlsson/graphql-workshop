@@ -37,13 +37,17 @@ class App extends PureComponent {
 	getAllTodos () {
 		const resource = 'todos';
 		const params = {};
-		const fields = `{itemId item completed}`
+		const fields = `{itemId item completed}`;
+
 		getGraphQlData(resource, params, fields)
 		.then(todos => {
 			console.log('todos', todos);
 			this.setState({
 				todos: todos.data.todos,
 			});
+		})
+		.catch(err => {
+			console.error('err', err);
 		});
 	}
 
@@ -53,6 +57,7 @@ class App extends PureComponent {
 		const resource = 'AddTodo';
 		const params = {itemId: 1234, item: value, completed: false};
 		const fields = `{itemId item completed}`;
+
 		getGraphQlData(resource, params, fields, false)
 		.then(newTodo => {
 			const newTodos = this.state.todos.slice();
@@ -61,6 +66,9 @@ class App extends PureComponent {
 				todos: newTodos,
 				value: '',
 			});
+		})
+		.catch(err => {
+			console.error('err', err);
 		});
 	}
 
