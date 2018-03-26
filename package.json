@@ -1,7 +1,7 @@
 {
   "name": "graphql-workshop",
   "version": "1.0.0",
-  "description": "Graphql Workshop",
+	"description": "GraphQL is the future of API. It's powerful enough to describe all of Facebook, yet simple enough to be easy to learn and use by its product developers. If you have ever worked with an API, you have probably bumped into the limitations of REST.",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --inline --hot --progress",
