@@ -6,7 +6,6 @@ import "./css/index.css";
 class List extends PureComponent {
   render() {
     const itemNode = this.props.todos.map(todo => {
-			console.log('todo', todo);
       return (
         <Item todo={ todo.item } key={ todo._id } />
       )
@@ -58,16 +57,22 @@ class App extends PureComponent {
           </div>
         </div>
 
-        <div className="section content">
+        <div className="section" id="content">
+				 <div className="six columns">
           <h4>REST</h4>
-          <div>
-            Enter a new item in the text box and hit Submit to save it to the
-            database
-          </div>
           <form action="/todo" method="POST">
             <input type="text" placeholder="item" name="item" />
             <button type="submit">Submit</button>
           </form>
+				</div>
+
+					<div className="six columns">
+            <h4>Graphql Post</h4>
+            <form action="/graphql?query=mutation" method="POST">
+              <input type="text" placeholder="item" name="item" />
+              <button type="submit">Submit</button>
+            </form>
+          </div>
         </div>
 
 				<div className="section todos">
@@ -91,6 +96,11 @@ class App extends PureComponent {
           <div>
             <a href="/graphql?query=mutation%20AddTodoItem{AddTodo(itemId:2,item:&quot;New_todo_item&quot;,completed:false){item, completed}}&operationName=AddTodoItem">
               GraphQL Mutation Test - Add Todo
+            </a>
+          </div>
+          <div>
+            <a href="/graphql?query=mutation%20DeleteTodoItem%7BDeleteTodo(itemId%3A2)%7Bitem%7D%7D&operationName=DeleteTodoItem">
+              GraphQL Mutation Test - Delete Todo by ID
             </a>
           </div>
         </div>

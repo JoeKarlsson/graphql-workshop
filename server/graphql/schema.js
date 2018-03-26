@@ -6,51 +6,99 @@ const {
   GraphQLList,
   GraphQLInt,
   GraphQLBoolean
-} = require("graphql/type");
+} = require('graphql/type');
 
-const ToDoMongo = require("../database/Todo");
+const ToDoMongo = require('../database/Todo');
 
 const todoType = new GraphQLObjectType({
-  name: "todo",
-  description: "todo item",
+  name: 'todo',
+  description: 'todo item',
   fields: () => ({
     itemId: {
-      type: GraphQLInt,
-      description: "The id of the todo."
+      type: (GraphQLInt),
+      description: 'The id of the todo.',
     },
     item: {
       type: GraphQLString,
-      description: "The name of the todo."
+      description: 'The name of the todo.',
     },
     completed: {
       type: GraphQLBoolean,
-      description: "Completed todo?"
+      description: 'Completed todo?'
     }
   })
 });
 
-const TodoQueryType = new GraphQLObjectType({
-  name: "RootQueryType",
-  fields: {
-    todo: {
-      type: new GraphQLList(todoType),
-      description: "Todo items",
+const TodoMutationType = new GraphQLObjectType({
+  name: 'todoMutation',
+  description: 'These are the things we can change on a todo item.',
+  fields: () => ({
+    DeleteTodo: {
+      type: todoType,
+      description: 'Delete a todo with id and return the todo that was deleted.',
       args: {
-        itemId: {
-          name: "itemId",
-          type: new GraphQLNonNull(GraphQLInt)
-        }
+        itemId: { type: new GraphQLNonNull(GraphQLInt) }
       },
-      resolve: (root, { itemId }) => {
-        const foundItems = new Promise((resolve, reject) => {
-          ToDoMongo.find({ itemId }, (err, todos) => {
-            err ? reject(err) : resolve(todos);
-          });
-        });
+      resolve: (value, { itemId }) => {
+				const deletedItem = new Promise((resolve, reject) => {
+						ToDoMongo.deleteOne({itemId},(err, todo) => {
+								err ? reject(err) : resolve(todo);
+						});
+				});
 
-        return foundItems;
+				return deletedItem
       }
     },
+		AddTodo: {
+      type: todoType,
+      description: 'Create a todo and return the new todo.',
+      args: {
+				itemId: {
+		      type: new GraphQLNonNull(GraphQLInt),
+		      description: 'The id of the todo.',
+		    },
+		    item: {
+		      type: new GraphQLNonNull(GraphQLString),
+		      description: 'The name of the todo.',
+		    },
+		    completed: {
+		      type: GraphQLBoolean,
+		      description: 'Has the todo been completed?',
+		    }
+      },
+      resolve: (value, { itemId, item, completed }) => {
+				const newTodo = new Promise((resolve, reject) => {
+						ToDoMongo.create({itemId, item, completed},(err, todo) => {
+								err ? reject(err) : resolve(todo);
+						});
+				});
+				return newTodo
+      }
+    }
+  }),
+});
+
+const TodoQueryType = new GraphQLObjectType({
+	name: 'RootQueryType',
+	fields: {
+		todo: {
+			type: new GraphQLList(todoType),
+			description: 'Todo items',
+			args: {
+				itemId: {
+					name: 'itemId',
+					type: new GraphQLNonNull(GraphQLInt),
+				},
+			},
+			resolve: (root, {itemId}, source, fieldASTs) => {
+				const foundItems = new Promise((resolve, reject) => {
+						ToDoMongo.find({itemId},(err, todos) => {
+								err ? reject(err) : resolve(todos);
+						});
+				});
+				return foundItems;
+			}
+		},
 		todos: {
       type: new GraphQLList(todoType),
       description: "All todo items",
@@ -61,15 +109,15 @@ const TodoQueryType = new GraphQLObjectType({
             err ? reject(err) : resolve(todos);
           });
         });
-
         return foundItems;
       }
     },
-  }
+	}
 });
 
 const schema = new GraphQLSchema({
-  query: TodoQueryType
+  query: TodoQueryType,
+	mutation: TodoMutationType,
 });
 
 module.exports = schema;
