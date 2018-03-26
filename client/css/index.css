@@ -7,7 +7,7 @@
 /* Sections
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .section {
-  padding: 8rem 0 7rem;
+  padding: 6rem 0 6rem;
   text-align: center;
 }
 .section-heading,
@@ -19,22 +19,31 @@
 /* Header
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .header {
-  background-color: #AFD2A5;
-  border-bottom: 1px solid #ddd;
+  background-color: #F7D38C;
 }
 
 /* conctent
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .content {
-  background-color: #EBEBBE;
-  border-bottom: 1px solid #ddd;
+  background-color: #AFD2A5;
+}
+
+/* todos
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.todos {
+  background-color: #73AFAA;
 }
 
 /* Footer
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .footer {
-  background-color: #EBB991;
-  border-bottom: 1px solid #ddd;
+  background-color: #6F79A5;
+}
+
+/* extra
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.extra {
+  background-color: #903B66;
 }
 
 

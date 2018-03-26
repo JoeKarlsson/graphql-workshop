@@ -20,21 +20,28 @@ module.exports = function (app) {
 
 	app.use('/', express.static(path.resolve(__dirname, 'dist')));
 
-	app.post('/quotes',(req,res)=>{
+	app.get('/todos', (req, res) => {
+		ToDo.find((err, todos) => {
+			if (err) {console.log("---Get all TodoItems failed: " + err)}
+			res.json(todos);
+		})
+	})
+
+	app.post('/todo', (req,res) => {
 		// Insert into TodoList Collection
 		var todoItem = new ToDo({
 			itemId:1,
 			item:req.body.item,
-			completed: false
-		})
+			completed: false,
+		});
 
 		todoItem.save((err,result)=> {
 			if (err) {console.log("---TodoItem save failed " + err)}
-			console.log("+++TodoItem saved successfully " + todoItem.item)
+			console.log("+++TodoItem saved successfully " + todoItem.item);
 
-			res.redirect('/')
-		})
-	})
+			res.redirect('/');
+		});
+	});
 
 	app.listen(SERVER_PORT, () => {
 	  console.log(`Server is now running on http://localhost:${SERVER_PORT}`);
