@@ -40,6 +40,7 @@ class App extends PureComponent {
 		const fields = `{itemId item completed}`
 		getGraphQlData(resource, params, fields)
 		.then(todos => {
+			console.log('todos', todos);
 			this.setState({
 				todos: todos.data.todos,
 			});
@@ -48,10 +49,10 @@ class App extends PureComponent {
 
 	createNewTodo (event) {
 		event.preventDefault();
-		const value = this.state.value;
+		const { value } = this.state;
 		const resource = 'AddTodo';
 		const params = {itemId: 1234, item: value, completed: false};
-		const fields = `{itemId item completed}`
+		const fields = `{itemId item completed}`;
 		getGraphQlData(resource, params, fields, false)
 		.then(newTodo => {
 			const newTodos = this.state.todos.slice();
