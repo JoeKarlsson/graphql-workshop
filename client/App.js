@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import getGraphQlData from './api';
 import './css/normalize.css';
 import './css/skeleton.css';
 import './css/index.css';
@@ -23,9 +24,9 @@ class App extends PureComponent {
 		super();
 		this.state = {
 			todos: [],
+			value: '',
 		};
-		this.getGraphQlData = this.getGraphQlData.bind(this);
-		this.postGraphQLData = this.postGraphQLData.bind(this);
+		this.handleChange = this.handleChange.bind(this);
 		this.createNewTodo = this.createNewTodo.bind(this);
 	}
 
@@ -37,7 +38,7 @@ class App extends PureComponent {
 		const resource = 'todos';
 		const params = {};
 		const fields = `{itemId item completed}`
-		this.getGraphQlData(resource, params, fields)
+		getGraphQlData(resource, params, fields)
 		.then(todos => {
 			this.setState({
 				todos: todos.data.todos,
@@ -47,63 +48,24 @@ class App extends PureComponent {
 
 	createNewTodo (event) {
 		event.preventDefault();
-		const operationName = 'AddTodoItem';
+		const value = this.state.value;
 		const resource = 'AddTodo';
-		const params = {itemId:2,item:'new todo 4321',completed:false};
+		const params = {itemId: 1234, item: value, completed: false};
 		const fields = `{itemId item completed}`
-		this.postGraphQLData(operationName, resource, params, fields)
-		.then(todos => {
-			console.log('todos', todos);
+		getGraphQlData(resource, params, fields, false)
+		.then(newTodo => {
+			const newTodos = this.state.todos.slice();
+			newTodos.push(newTodo.data.AddTodo)
+			this.setState({
+				todos: newTodos,
+				value: '',
+			});
 		});
 	}
 
-	getGraphQlData(resource, params, fields) {
-		const query = `{${resource} ${this.paramsToString(params)} ${fields}}`;
-		return fetch('/graphql', {
-			method: 'POST',
-			mode: 'cors',
-			headers: new Headers({
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-			}),
-			body: JSON.stringify({ query }),
-		})
-		.then(response => response.json())
-	}
-
-	postGraphQLData(operationName, resource, params, fields) {
-		const query = `mutation {${resource} ${this.paramsToString(params)} ${fields}}`;
-		return fetch('/graphql', {
-			method: 'POST',
-			mode: 'cors',
-			headers: new Headers({
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-			}),
-			body: JSON.stringify({ query }),
-		})
-		.then(response => response.json())
-	}
-
-	paramsToString(params) {
-		let paramString = '';
-		if (params.constructor === Object && Object.keys(params).length) {
-			let tmp = [];
-			for (let key in params) {
-				let paramStr = params[key];
-				if (paramStr !== '') {
-					if (typeof params[key] === 'string') {
-						paramStr = `"${paramStr}"`;
-					}
-					tmp.push(`${key}:${paramStr}`);
-				}
-			}
-			if (tmp.length) {
-				paramString = `(${tmp.join()})`;
-			}
-		}
-		return paramString;
-	}
+	handleChange(event) {
+    this.setState({value: event.target.value});
+  }
 
 	render() {
 		return (
@@ -128,11 +90,11 @@ class App extends PureComponent {
 
 					<div className="six columns">
 						<h4>GraphQL</h4>
-						<form>
-							<input type="text" placeholder="item" name="item" />
+						<form onSubmit={this.createNewTodo}>
+							<input type="text" placeholder="item" name="item" value={this.state.value} onChange={this.handleChange} />
 							<input type="hidden" value="false" name="completed" />
 							<input type="hidden" value="3" name="id" />
-							<button onClick={this.createNewTodo} type="submit">Submit</button>
+							<button type="submit">Submit</button>
 						</form>
 					</div>
 				</div>
