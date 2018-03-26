@@ -3,13 +3,55 @@ import "./css/normalize.css";
 import "./css/skeleton.css";
 import "./css/index.css";
 
+class List extends PureComponent {
+  render() {
+    const itemNode = this.props.todos.map(todo => {
+			console.log('todo', todo);
+      return (
+        <Item todo={ todo.item } key={ todo._id } />
+      )
+    })
+    return <ul>{ itemNode }</ul>;
+  }
+};
+
+class Item extends PureComponent {
+  render() {
+    return <li>{ this.props.todo }</li>;
+  }
+};
+
 class App extends PureComponent {
+	constructor() {
+    super();
+    this.state = {
+      todos: [],
+    }
+		this.getTodos = this.getTodos.bind(this);
+  };
+
+	componentDidMount () {
+		this.getTodos();
+	}
+
+	getTodos () {
+		const url = '/graphql?query=query%20GetAllTodos%7Btodos%7BitemId%2Citem%7D%7D&operationName=GetAllTodos';
+
+		fetch(url)
+		.then((response) => response.json())
+		.then(todos => {
+			this.setState({
+				todos: todos.data.todos,
+			});
+		});
+	}
+
   render() {
     return (
       <div>
         <div className="section header">
           <div className="container">
-            <h3 className="section-heading">GraphQL Workshop</h3>
+            <h1 className="section-heading">GraphQL Workshop</h1>
             <p className="section-description">
               By: <a href="http://callmejoe.net/">Joe Karlsson</a>
             </p>
@@ -22,17 +64,28 @@ class App extends PureComponent {
             Enter a new item in the text box and hit Submit to save it to the
             database
           </div>
-          <form action="/quotes" method="POST">
+          <form action="/todo" method="POST">
             <input type="text" placeholder="item" name="item" />
             <button type="submit">Submit</button>
           </form>
         </div>
 
-        <div className="section footer">
+				<div className="section todos">
+          <h4>Todos:</h4>
+					<List todos={this.state.todos} />
+
+        </div>
+
+				<div className="section footer">
           <h2>GraphQL Test</h2>
           <div>
             <a href="/graphql?query={todo(itemId:1){itemId,item}}">
               GraphQL Query Test
+            </a>
+          </div>
+          <div>
+            <a href="/graphql?query=query%20GetAllTodos%7Btodos%7BitemId%2Citem%7D%7D&operationName=GetAllTodos">
+              GraphQL Mutation Test - Get All Todos
             </a>
           </div>
           <div>
@@ -41,6 +94,7 @@ class App extends PureComponent {
             </a>
           </div>
         </div>
+
       </div>
     );
   }

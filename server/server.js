@@ -37,7 +37,7 @@ module.exports = app => {
     })
   );
 
-  app.post("/quotes", (req, res) => {
+  app.post("/todos", (req, res) => {
     // Insert into TodoList Collection
     const todoItem = new ToDo({
       itemId: 1,

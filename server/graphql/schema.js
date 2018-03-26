@@ -41,7 +41,7 @@ const TodoQueryType = new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLInt)
         }
       },
-      resolve: (root, { itemId }, source, fieldASTs) => {
+      resolve: (root, { itemId }) => {
         const foundItems = new Promise((resolve, reject) => {
           ToDoMongo.find({ itemId }, (err, todos) => {
             err ? reject(err) : resolve(todos);
@@ -50,7 +50,21 @@ const TodoQueryType = new GraphQLObjectType({
 
         return foundItems;
       }
-    }
+    },
+		todos: {
+      type: new GraphQLList(todoType),
+      description: "All todo items",
+      args: {},
+      resolve: () => {
+        const foundItems = new Promise((resolve, reject) => {
+          ToDoMongo.find((err, todos) => {
+            err ? reject(err) : resolve(todos);
+          });
+        });
+
+        return foundItems;
+      }
+    },
   }
 });
 
