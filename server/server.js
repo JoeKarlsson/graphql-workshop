@@ -7,16 +7,19 @@ const ToDo = require ('./database/Todo');
 const app = express();
 const SERVER_PORT = 3000;
 
+const connectToMongo = () => {
+  mongoose.connect("mongodb://database:27017/local");
+  const db = mongoose.connection;
+  db.on("error", () => {
+    console.log("---FAILED to connect to mongoose");
+  });
+  db.once("open", () => {
+    console.log("+++Connected to mongoose");
+  });
+};
+
 module.exports = function (app) {
-	app.use(bodyParser.urlencoded({extended:true}))
-
-	mongoose.connect('mongodb://database:27017/local')
-
-	const db = mongoose.connection;
-	db.on('error', ()=> { console.log( '---FAILED to connect to mongoose') })
-	db.once('open', () => {
-		console.log( '+++Connected to mongoose')
-	})
+	connectToMongo();
 
 	app.use('/', express.static(path.resolve(__dirname, 'dist')));
 
