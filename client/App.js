@@ -41,7 +41,6 @@ class App extends PureComponent {
 
 		getGraphQlData(resource, params, fields)
 		.then(todos => {
-			console.log('todos', todos);
 			this.setState({
 				todos: todos.data.todos,
 			});
