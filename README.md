@@ -41,7 +41,7 @@ CONTAINER ID        IMAGE                              COMMAND                  
 
 To confirm everything is working, go into your web browser and open [http://localhost:3000/](http://localhost:3000/) - you should see a Hello World message like this there:
 
-<img width="730" alt="screen shot 2018-02-20 at 7 47 35 pm" src="https://user-images.githubusercontent.com/4650739/36458928-f395f8ca-1676-11e8-80f9-a9a5295c3d3b.png">
+![page](https://user-images.githubusercontent.com/4650739/38783611-01943a72-40ca-11e8-9426-de049c4f650f.png)
 
 This data is loaded from your database using GraphQL - you're ready to do the workshop now :)
 
