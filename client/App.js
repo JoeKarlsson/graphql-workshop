@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import getGraphQlData from './api';
 import "./css/normalize.css";
 import "./css/skeleton.css";
 import "./css/index.css";
@@ -6,7 +7,6 @@ import "./css/index.css";
 class List extends PureComponent {
   render() {
     const itemNode = this.props.todos.map(todo => {
-			console.log('todo', todo);
       return (
         <Item todo={ todo.item } key={ todo._id } />
       )
@@ -77,23 +77,28 @@ class App extends PureComponent {
         </div>
 
 				<div className="section footer">
-          <h2>GraphQL Test</h2>
-          <div>
-            <a href="/graphql?query={todo(itemId:1){itemId,item}}">
-              GraphQL Query Test
-            </a>
-          </div>
-          <div>
-            <a href="/graphql?query=query%20GetAllTodos%7Btodos%7BitemId%2Citem%7D%7D&operationName=GetAllTodos">
-              GraphQL Mutation Test - Get All Todos
-            </a>
-          </div>
-          <div>
-            <a href="/graphql?query=mutation%20AddTodoItem{AddTodo(itemId:2,item:&quot;New_todo_item&quot;,completed:false){item, completed}}&operationName=AddTodoItem">
-              GraphQL Mutation Test - Add Todo
-            </a>
-          </div>
-        </div>
+					<h2>GraphQL Test</h2>
+					<div>
+						<a href="/graphql?query={todo(itemId:1){itemId,item}}">
+							GraphQL Query Test
+						</a>
+					</div>
+					<div>
+						<a href="/graphql?query=query%20GetAllTodos%7Btodos%7BitemId%2Citem%7D%7D&operationName=GetAllTodos">
+							GraphQL Mutation Test - Get All Todos
+						</a>
+					</div>
+					<div>
+						<a href="/graphql?query=mutation%20AddTodoItem{AddTodo(itemId:2,item:&quot;New_todo_item&quot;,completed:false){item, completed}}&operationName=AddTodoItem">
+							GraphQL Mutation Test - Add Todo
+						</a>
+					</div>
+					<div>
+						<a href="/graphql?query=mutation%20DeleteTodoItem($itemId:%20Int!)%7BDeleteTodo(itemId%3A%24itemId)%7Bitem%7D%7D&operationName=DeleteTodoItem&variables={itemId:2}">
+							GraphQL Mutation Test - Delete Todo by ID
+						</a>
+					</div>
+				</div>
 
       </div>
     );
