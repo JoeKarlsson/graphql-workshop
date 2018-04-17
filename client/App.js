@@ -37,6 +37,7 @@ class App extends PureComponent {
 	// REST based query
 	getAllTodos () {
 		const url = '/todos';
+		// const url = '/graphql?query=query%20GetAllTodos%7Btodos%7BitemId%2Citem%7D%7D&operationName=GetAllTodos';
 
 		fetch(url)
 		.then((response) => response.json())
