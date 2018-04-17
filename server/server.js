@@ -22,6 +22,7 @@ module.exports = function (app) {
 	connectToMongo();
 
 	app.use('/', express.static(path.resolve(__dirname, 'dist')));
+	app.use(bodyParser.urlencoded({ extended: false }));
 
 	app.get('/todos', (req, res) => {
 		ToDo.find((err, todos) => {

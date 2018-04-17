@@ -24,8 +24,9 @@
 
 /* conctent
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-.content {
+#content {
   background-color: #AFD2A5;
+	padding: 12rem 0 25rem;
 }
 
 /* todos
