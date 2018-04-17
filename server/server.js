@@ -25,7 +25,6 @@ module.exports = app => {
 	app.use(
 		'/graphql',
 		graphqlHTTP(request => {
-			console.log('request.body', request.body);
 			return {
 				schema: schema,
 				graphiql: true,
