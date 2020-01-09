@@ -21,7 +21,7 @@
     "express-graphql": "0.6.12",
     "graphql": "0.13.1",
     "html-webpack-plugin": "2.28.0",
-    "mongoose": "5.0.6",
+    "mongoose": "5.7.5",
     "react": "15.4.2",
     "react-dom": "15.4.2",
     "webpack": "2.6.1",
