@@ -25,7 +25,7 @@
     "react": "15.4.2",
     "react-dom": "15.4.2",
     "webpack": "2.6.1",
-    "webpack-dev-server": "2.9.7",
+    "webpack-dev-server": "3.1.11",
     "webpack-hot-middleware": "2.21.0"
   }
 }
