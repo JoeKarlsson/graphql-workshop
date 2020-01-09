@@ -1,57 +1,61 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const path = require("path");
-const ToDo = require("./database/Todo");
-const { graphql } = require("graphql");
-const graphqlHTTP = require("express-graphql");
-const schema = require("./graphql/Schema");
+const path = require('path');
+const express = require('express');
+const graphqlHTTP = require('express-graphql');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const ToDo = require('./database/Todo');
+const schema = require('./graphql/schema');
 
-const app = express();
-const SERVER_PORT = 3001;
+const connectToMongo = () => {
+	mongoose.connect('mongodb://database:27017/local');
+	const db = mongoose.connection;
+	db.on('error', () => {
+		console.log('---FAILED to connect to mongoose');
+	});
+	db.once('open', () => {
+		console.log('+++Connected to mongoose');
+	});
+};
 
-module.exports = function(app) {
-  app.use(bodyParser.urlencoded({ extended: true }));
+module.exports = app => {
+	connectToMongo();
+	app.use(bodyParser.json())
+	app.use('/', express.static(path.resolve(__dirname, 'dist')));
 
-  mongoose.connect("mongodb://database:27017/local");
+	app.use(
+		'/graphql',
+		graphqlHTTP(request => {
+			return {
+				schema: schema,
+				graphiql: true,
+				pretty: true,
+				formatError: error => ({
+					message: error.message,
+					locations: error.locations,
+					stack: error.stack ? error.stack.split('\n') : [],
+					path: error.path,
+				}),
+			};
+		}),
+	);
 
-  const db = mongoose.connection;
-  db.on("error", () => {
-    console.log("---FAILED to connect to mongoose");
-  });
-  db.once("open", () => {
-    console.log("+++Connected to mongoose");
-  });
+	app.post('/todos', (req, res) => {
+		// Insert into TodoList Collection
+		const todoItem = new ToDo({
+			itemId: 1,
+			item: req.body.item,
+			completed: false,
+		});
 
-  app.use("/", express.static(path.resolve(__dirname, "dist")));
+		todoItem.save((err, result) => {
+			if (err) {
+				console.log('---TodoItem save failed ' + err);
+			}
+			console.log('+++TodoItem saved successfully ' + todoItem.item);
 
-  app.use(
-    "/graphql",
-    graphqlHTTP(req => ({
-      schema
-      // graphiql:true,
-    }))
-  );
+			res.redirect('/');
+		});
+	});
 
-  app.post("/quotes", (req, res) => {
-    // Insert into TodoList Collection
-    var todoItem = new ToDo({
-      itemId: 1,
-      item: req.body.item,
-      completed: false
-    });
-
-    todoItem.save((err, result) => {
-      if (err) {
-        console.log("---TodoItem save failed " + err);
-      }
-      console.log("+++TodoItem saved successfully " + todoItem.item);
-
-      res.redirect("/");
-    });
-  });
-
-  app.listen(SERVER_PORT, () => {
-    console.log(`Server is now running on http://localhost:${SERVER_PORT}`);
-  });
+	app.listen(3000);
 };

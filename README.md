@@ -39,12 +39,9 @@ CONTAINER ID        IMAGE                              COMMAND                  
 469b489d1507        mongo                              "docker-entrypoint.s…"   5 minutes ago       Up 49 seconds       27017/tcp                          graphqlworkshop_database_1
 ```
 
-Finally, we can now run `npm start`, which boots up the web server, as well as the webpack dev server.
-
-To confirm everything is working, go into your web browser and open [http://localhost:3001/](http://localhost:3001/) - you should see a Hello World message like this there:
+To confirm everything is working, go into your web browser and open [http://localhost:3000/](http://localhost:3000/) - you should see a Hello World message like this there:
 
 <img width="730" alt="screen shot 2018-02-20 at 7 47 35 pm" src="https://user-images.githubusercontent.com/4650739/36458928-f395f8ca-1676-11e8-80f9-a9a5295c3d3b.png">
-
 
 This data is loaded from your database using GraphQL - you're ready to do the workshop now :)
 
@@ -52,25 +49,17 @@ This data is loaded from your database using GraphQL - you're ready to do the wo
 
 1. Run `git fetch` then `git checkout step-2`
 1. Look through the code together
-1. Add support for showing the Instruments of a Sequencer (client and server-side!)
+1. Add support for showing the Todos with GraphQL
 
 ### Step 3 - Effective Mutations
 
 1. Run `git fetch` then `git checkout step-3`
 1. Look through the code together
-1. Add support for adding and deleting the Instruments to a Sequencer (client and server-side!)
+1. Add support for adding and deleting Todos with GraphQL.
 
-### Step 4 - Reactive Subscriptions
+### Step 4 - Hack Time
 
 1. Run `git fetch` then `git checkout step-4`
-1. Enable LISTEN/NOTIFY using `cat data/sql/02_notify.sql | docker exec -i graphqlworkshop_db_1 psql -U workshop`
-1. Run `docker exec -it graphqlworkshop_db_1 psql -U workshop` and run `INSERT INTO sequencers (song_id, resolution, bars) VALUES ('00c60941-3c2f-4935-b2f3-589b4594d302', 32, 2);`
-1. Look through the code together
-1. Add support for subscribing to instrument creations (client and server-side!)
-
-### Step 5 - Hack Time
-
-1. Run `git fetch` then `git checkout step-5`
 
 This gives you all the previous steps completed. Now its up to you :-)
 
